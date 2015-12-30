@@ -4,7 +4,7 @@ import json
 import gpio
 dev1_pin = "gpio19"
 dev2_pin = "gpio18"
-ip_address= "192.168.1.106"
+ip_address= "localhost"
 
 def setup():
     gpio.pinMode(dev1_pin, gpio.OUTPUT)
@@ -20,17 +20,17 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     gpio_msc = str(msg.payload)
     print(msg.topic+" "+gpio_msc)
-    
+
     if gpio_msc == 'dev1-on':
         gpio.digitalWrite(dev1_pin, gpio.HIGH)
     elif gpio_msc == 'dev1-off':
         gpio.digitalWrite(dev1_pin, gpio.LOW)
     elif gpio_msc == 'dev2-on':
 	gpio.digitalWrite(dev2_pin, gpio.HIGH)
-    elif gpio_msc == 'dev2-off': 
+    elif gpio_msc == 'dev2-off':
         gpio.digitalWrite(dev2_pin, gpio.LOW)
 
-   
+
 
 client = mqtt.Client()
 client.on_connect = on_connect
@@ -38,7 +38,7 @@ client.on_message = on_message
 setup()
 
 try:
-    client.connect("192.168.1.106", 1883, 60)
+    client.connect("localhost", 1883, 60)
     client.loop_forever()
 
 except KeyboardInterrupt:

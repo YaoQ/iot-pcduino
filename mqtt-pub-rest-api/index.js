@@ -6,7 +6,7 @@ var port = Number(process.env.PORT || 4444);
 
 server.connection({ port: port, routes: { cors: true } });
 
-var client  = mqtt.connect('mqtt://192.168.1.106:1883');
+var client  = mqtt.connect('mqtt://localhost:1883');
       
 server.route([
   {
